@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block title%}
+doctor
+ {% endblock %}
+ {% block content %}
+ <h1 class="text-center">OUR DOCTORS</h1>
+ <hr>
+
+<div class="container mt-5 bg-light">
+    <div class="row">
+
+        {% for doctor in doc %}
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card h-100 text-center">
+
+                <img src="{{ doctor.doc_image.url }}"
+                     class="card-img-top img-fluid"
+                     alt="Doctor">
+
+                <div class="card-body">
+                    <h5 class="card-title">Dr. {{ doctor.doc_name }}</h5>
+                    <p class="card-text">{{ doctor.doc_spec }}</p>
+                    <p class="text-muted text-uppercase">
+                        {{ doctor.doc_dept.dep_name }}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+          {% endfor %}
+
+    
+{% endblock %}

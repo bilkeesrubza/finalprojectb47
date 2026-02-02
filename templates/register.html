@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content%}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <label>Register as:</label><br>
+    <input type="radio" name="user_type" value="staff" required> Staff (can see all appointments)<br>
+    <input type="radio" name="user_type" value="doctor" required> Doctor (see only my appointments)<br>
+    
+    <div id="doctor-select" style="display:none;">
+        <label>Select Doctor Profile:</label>
+        <select name="doctor">
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">Dr. {{ doctor.doc_name}} - {{ doctor.doc_spec }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit">Register</button>
+</form>
+
+<script>
+document.querySelectorAll('input[name="user_type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        document.getElementById('doctor-select').style.display = 
+            this.value === 'doctor' ? 'block' : 'none';
+    });
+});
+</script>
+{% endblock %}

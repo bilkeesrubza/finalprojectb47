@@ -1,0 +1,11 @@
+.card {
+    border-radius: 12px;
+}
+
+.table th {
+    font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f2f6ff;
+}

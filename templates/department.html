@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+<h1>department</h1>
+{% endblock %}
+{% block content %}
+<h1 class="text-center"> OUR DEPARTMENT</h1>
+<hr>
+{% for i in dept %}
+<div class="mx-auto w-50 bg-success text-center text-white p3 my-3 border border-warning rounded-2">
+    <h1>{{i.dep_name}}</h1>
+    <p>{{i.dep_description}}</p>
+</div>
+{% endfor %}
+<div class="row" style="position: absolute; top: 150px;">
+    <div class="col-lg-3">
+        <ul class="nav nav-tabs flex-column">
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-2">Neurology</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-3">Cardiology</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-4">Pediatrics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-5">orthopaedic</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-5">dermatology</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-5">genereal physician</a>
+            </li>
+        </ul>
+    </div>
+</div>
+    {% endblock %}

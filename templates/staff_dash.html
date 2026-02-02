@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/dash.css' %}">
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-calendar-check"></i>
+                All Appointments (Staff View)
+            </h4>
+        </div>
+
+        <div class="card-body">
+            {% if appointments %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in appointments %}
+                        <tr>
+                            <td>{{ app.patient_name }}</td>
+                            <td>Dr. {{ app.doc_name }}</td>
+                            <td>{{ app.booking_date }}</td>
+                            <td>{{ app.appointment_time }}</td>
+                            
+                            <td>
+                        {% if app.status %}
+                        <span class="badge bg-success">Approved</span>
+                        {% else %}
+                         <span class="badge bg-warning text-dark">Pending</span>
+                        {% endif %}
+                        </td>
+                        <td>
+                        {% if not app.status %}
+                            <!-- Approve -->
+                            <form method="POST" action="{% url 'status_approve' app.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    Approve
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        <!-- Delete (always visible for staff) -->
+                        <form method="POST" action="{% url 'delete_booking' app.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                        </td>
+
+
+                        
+
+                            
+                                 
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <p class="text-center text-muted">No appointments available</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
