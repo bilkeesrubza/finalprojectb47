@@ -1,0 +1,100 @@
+/* My Appointments Page - Medora */
+
+.my-appointments-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Page Title */
+.my-appointments-page h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+/* Appointment Cards */
+.appointments-list {
+  display: grid;
+  gap: 20px;
+}
+
+.appointment-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.appointment-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-header strong {
+  font-size: 18px;
+  color: #0b7285;
+}
+
+.dept {
+  background: #e3fafc;
+  color: #0b7285;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* Card Body */
+.card-body p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+/* Status */
+.card-footer {
+  margin-top: 12px;
+}
+
+.status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status.confirmed {
+  background: #d3f9d8;
+  color: #2b8a3e;
+}
+
+.status.pending {
+  background: #fff3bf;
+  color: #8a6d3b;
+}
+
+/* Empty Message */
+.empty-text {
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

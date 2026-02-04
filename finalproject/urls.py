@@ -23,6 +23,6 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url=reverse_lazy('home'), permanent=False)),
+    path('', RedirectView.as_view(url=reverse_lazy('about'), permanent=False)),
     path('medora/',include('home.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

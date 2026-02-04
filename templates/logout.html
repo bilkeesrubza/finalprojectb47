@@ -4,3 +4,64 @@
 {% endblock %}
 
 
+<nav class="navbar bg-primary navbar-expand-md">
+    <div class="container">
+      <div class="col-2 text-left pl-md-0">
+        <h3 class="text-black fontawesome-free fw-bold"> MEDORA </h3>
+      </div>
+
+      <div class="collapse navbar-collapse justify-content-center col-md-8 navbar-collapse-3">
+        <ul class="navbar-nav justify-content-center  fw-bold">
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="{% url 'home' %}">Home </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="{% url 'register' %}">Register </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="{% url 'patient_login' %}">Login </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'about' %}">About</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'doctors' %}">Doctors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'department' %}">Departments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        {% if not user.is_staff%}
+          <a class="btn btn-success me-md-3 " type="button" href="{% url 'booking' %}">Make Appointment</button></a>
+        {% endif %}
+        </div>
+    {% if user.is_authenticated %}
+       {% if user.is_staff %}
+       
+        <a href="{% url 'logout' %}" class="text-decoration-none">
+            <span class="badge bg-danger text-white rounded px-3 py-2">
+                Logout
+            </span>
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}" class="text-decoration-none">
+        <span class="badge bg-success text-white  rounded px-3 py-2">
+        Admin
+        </span>
+         </a>
+         {% endif %}
+    {% else %}
+    <a href="{% url 'login' %}" class="text-decoration-none">
+        <span class="badge bg-success text-white rounded px-3 py-2">
+            Admin
+        </span>
+    </a>
+    {% endif %}
+    </div>
+  </nav>

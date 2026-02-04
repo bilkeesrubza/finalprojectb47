@@ -3,19 +3,19 @@
 
 <div class="login-container">
     <div class="login-card">
-        <h2 class="login-title">Login</h2>
+        <h2 class="login-title">AdminLogin</h2>
 
-        <form method="POST" action="{% url 'login' %}" class="login-form">
+        <form method="POST" action="{% url 'login' %}" class="login-form" autocomplete="off">
             {% csrf_token %}
 
             <div class="form-group">
                 <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-input" required>
+                <input type="text" name="username" class="form-input" required autocomplete="off">
             </div>
 
             <div class="form-group">
                 <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-input" required>
+                <input type="password" name="password" class="form-input" required autocomplete="new-password">
             </div>
 
             <button type="submit" class="submit-btn">Login</button>

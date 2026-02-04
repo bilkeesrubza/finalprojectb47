@@ -1,0 +1,119 @@
+.auth-page {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+}
+
+.auth-header {
+    background: linear-gradient(to right, #0d6efd, #0b5ed7);
+    padding: 2rem;
+    color: white;
+}
+
+.auth-header h2 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.auth-body {
+    padding: 2rem;
+}
+
+.input-group {
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.input-icon {
+    background: #f8f9fa;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #e0e0e0;
+    color: #6c757d;
+}
+
+.auth-form input {
+    border: none;
+    padding: 12px 15px;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.auth-form input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.error-msg {
+    color: #dc3545;
+    font-size: 0.85rem;
+    background: #f8d7da;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border-left: 4px solid #dc3545;
+}
+
+.auth-btn {
+    width: 100%;
+    background: linear-gradient(to right, #0d6efd, #0b5ed7);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+}
+
+.auth-footer a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+    color: #0b5ed7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .auth-card {
+        margin: 1rem;
+    }
+    
+    .auth-header {
+        padding: 1.5rem;
+    }
+    
+    .auth-body {
+        padding: 1.5rem;
+    }
+}

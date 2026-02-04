@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+<div class="my-appointments-page">
+
+  <h2 class="page-title">My Appointments</h2>
+  
+  {% if appointments %}
+    <div class="appointments-list">
+
+      {% for app in appointments %}
+        <div class="appointment-card">
+          
+          <div class="card-header">
+            <strong>Dr. {{ app.doc_name.doc_name }}</strong>
+            <span class="dept">{{ app.dep_name.dep_name }}</span>
+          </div>
+
+          <div class="card-body">
+            <p><strong>Patient:</strong> {{ app.patient_name|default:"Not provided" }}</p>
+            <p><strong>Date:</strong> {{ app.booking_date }}</p>
+            <p><strong>Time:</strong> {{ app.appointment_time|default:"Not set" }}</p>
+            <p><strong>D.O.B:</strong> {{ app.date_of_birth|default:"—" }}</p>
+          </div>
+
+          <div class="card-footer">
+            {% if app.status %}
+              <span class="status confirmed">✓ Confirmed</span>
+            {% else %}
+              <span class="status pending">⏳ Pending</span>
+            {% endif %}
+          </div>
+
+        </div>
+      {% endfor %}
+
+    </div>
+  {% else %}
+    <p class="empty-text">You have no appointments yet.</p>
+  {% endif %}
+
+</div>
+{% endblock %}

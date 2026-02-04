@@ -1,31 +1,106 @@
 {% extends 'base.html' %}
-{% block content%}
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <label>Register as:</label><br>
-    <input type="radio" name="user_type" value="staff" required> Staff (can see all appointments)<br>
-    <input type="radio" name="user_type" value="doctor" required> Doctor (see only my appointments)<br>
-    
-    <div id="doctor-select" style="display:none;">
-        <label>Select Doctor Profile:</label>
-        <select name="doctor">
-            {% for doctor in doctors %}
-                <option value="{{ doctor.id }}">Dr. {{ doctor.doc_name}} - {{ doctor.doc_spec }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    
-    <button type="submit">Register</button>
-</form>
+{% load static %}
 
-<script>
-document.querySelectorAll('input[name="user_type"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-        document.getElementById('doctor-select').style.display = 
-            this.value === 'doctor' ? 'block' : 'none';
-    });
-});
-</script>
+{% block title %}Register - Medora{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card register-card mt-5">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4">Register as Patient</h3>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            Register
+                        </button>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <p class="text-center mb-0">
+                        Already have an account? 
+                        <a href="{% url 'patient_login' %}" class="text-decoration-none">
+                            Login here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.register-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.card-title {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.15s ease-in-out;
+}
+
+input:focus {
+    outline: none;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.text-danger {
+    font-size: 14px;
+}
+
+hr {
+    opacity: 0.2;
+}
+
+a {
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>
 {% endblock %}

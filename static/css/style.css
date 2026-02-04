@@ -40,8 +40,8 @@ li:hover{
   display: block;
 }
 
-.form-group input,
-.form-group select {
+.form-control
+  {
   width: 100%;
   padding: 10px;
   border-radius: 8px;

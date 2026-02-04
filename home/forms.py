@@ -6,9 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    phone = forms.CharField(max_length=15,required=True)
     class Meta:
         model = User
-        fields = ['username','email','password1','password2']
+        fields = ['username','email','phone','password1']
 
 class Date_Input(forms.DateInput):
     input_type = 'date'
@@ -17,11 +18,13 @@ class BookingForm(forms.ModelForm):
     appointment_time= forms.ChoiceField(choices=[])
     class Meta:
        model=Booking
-       fields = '__all__'
+       fields = ['patient_name','date_of_birth','dep_name','doc_name','booking_date','appointment_time']
 
        widgets = {
            'booking_date': Date_Input(),
            'appointment_time' : forms.Select(),
+           'patient_name': forms.TextInput(attrs={'placeholder': 'Enter patient full name'}),
+            'date_of_birth': Date_Input(),
        }
     def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
