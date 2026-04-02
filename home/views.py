@@ -17,7 +17,8 @@ def about(request):
 
 def logout_page(request):
     logout(request)
-    return render(request,'welcome.html')
+    messages.get_messages(request) 
+    return redirect('home')
 
 def contact(request):
     return render(request,'contact.html')
@@ -40,7 +41,7 @@ def doctors_list(request):
 
     
 
-                                        #------USER FIELDS AND VIEWS--------------------
+                #------USER FIELDS AND VIEWS--------------------
 
 #-----FOR PATIENT REGISTRATION----------------
 def patient_register(request):
@@ -74,13 +75,15 @@ def patient_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             if DoctorUser.objects.filter(user=user).exists() or user.is_staff:
-                return render(request, 'welcome.html', {'error': "You are not authorized to login here."})
+                messages.error(request, "You are not authorized to login here.")
+                return redirect("Admin_login")
             login(request, user)
             messages.success(request, "Login successful!")
             return redirect("patient_dash")
         else:
             messages.error(request, "You entered wrong username or password")
-    return render(request, "welcome.html",{'show_navbar': False})
+            return redirect('patient_login')
+    return render(request, 'welcome.html',{'show_navbar': False})
 
 
 
@@ -89,15 +92,17 @@ def patient_login(request):
 @login_required
 def book_appointment(request):
 
-    if request.method == 'POST':
+    if request.method == 'POST' :
         form = BookingForm(request.POST)
-        if form.is_valid():
-            booking = form.save(commit=False)
-            booking.user = request.user
-            booking.save()
-            return render(request, 'success.html')
-        else:
-            messages.error(request, "Invalid Input Data")
+        if 'book_btn' in request.POST:
+            if form.is_valid():
+                booking = form.save(commit=False)
+                booking.user = request.user
+                booking.patient_name = request.user.username
+                booking.save()
+                return render(request, 'success.html')
+            else:
+                 messages.error(request, "Invalid Input Data")
     else:
         form = BookingForm()
 
@@ -116,7 +121,7 @@ def patient_dashboard(request):
         booking_date__gte=today
     ).order_by('booking_date')[:5] 
     
-    # Count stats
+    
     total_appointments = Booking.objects.filter(user=request.user).count()
     upcoming_count = appointments.count()
     

@@ -2,6 +2,7 @@ from django import forms
 from.models import Booking,Doctors
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm
+from datetime import date
 
 
 class RegisterForm(UserCreationForm):
@@ -18,16 +19,31 @@ class BookingForm(forms.ModelForm):
     appointment_time= forms.ChoiceField(choices=[])
     class Meta:
        model=Booking
-       fields = ['patient_name','date_of_birth','dep_name','doc_name','booking_date','appointment_time']
+       fields = ['dep_name','doc_name','booking_date','appointment_time']
 
        widgets = {
            'booking_date': Date_Input(),
            'appointment_time' : forms.Select(),
-           'patient_name': forms.TextInput(attrs={'placeholder': 'Enter patient full name'}),
-            'date_of_birth': Date_Input(),
+            'dep_name': forms.Select(attrs={'onchange': 'this.form.submit();'}),
        }
+    def clean_booking_date(self):
+        booking_date = self.cleaned_data.get('booking_date')
+
+        if booking_date < date.today():
+            raise forms.ValidationError("previous date selected. Please select a valid date.")
+
+        return booking_date
     def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Doctor queryset initially empty
+        self.fields['doc_name'].queryset = Doctors.objects.none()
+
+        # 🔹 Department selected ആണെങ്കിൽ doctors filter ചെയ്യുക
+        selected_department = self.data.get('dep_name')
+        if selected_department:
+            self.fields['doc_name'].queryset = Doctors.objects.filter(
+            doc_dept_id=selected_department
+        )
 
         selected_date = self.data.get('booking_date')
         selected_doctor = self.data.get('doc_name')

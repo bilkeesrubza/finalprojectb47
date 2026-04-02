@@ -47,12 +47,13 @@
         </li>
 
       {% else %}
-        {% if user.is_staff %}
+      
+        {% if user.is_staff  %}
           <!-- ADMIN -->
           <li class="nav-item">
             <a class="nav-link text-white" href="{% url 'staff_dash' %}">Dashboard</a>
           </li>
-
+        
         {% else %}
           <!-- PATIENT -->
           <li class="nav-item">
@@ -77,6 +78,7 @@
               MAKE APPOINTMENT
             </a>
           </li>
+
         {% endif %}
 
         <!-- ✅ LOGOUT FOR ALL AUTHENTICATED USERS -->
